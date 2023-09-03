@@ -1,0 +1,80 @@
+body {
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  flex: 1 0 auto;
+  background-color: rgb(243, 246, 255);
+  min-height: 100%;
+  display: flex;
+
+  .content {
+    padding: 0 200px;
+  }
+}
+
+/* Header */
+
+nav {
+  background-color: rgb(255, 255, 255);
+  padding: 0 50px;
+  border-bottom: 1px solid rgb(227, 230, 239);
+
+  .brand-logo {
+    color: rgb(57, 63, 76);
+    font-weight: 800;
+
+    :is(span) {
+      color: rgb(72, 155, 232);
+    }
+  }
+
+  & ul a,
+  & a {
+    color: rgb(57, 63, 76);
+  }
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid rgb(227, 230, 239);
+  flex-shrink: 0;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+}
+
+.created-by {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: rgb(57, 63, 76);
+  font-size: 15px;
+  font-weight: 430;
+
+  & a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      height: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  nav {
+    padding: 0 10px;
+  }
+}
