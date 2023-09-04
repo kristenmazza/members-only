@@ -1,32 +1,30 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
+const connection = require('./config/database');
+const passport = require('passport');
+
 require('dotenv').config();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
 
-var app = express();
+const app = express();
 
-const mongoose = require('mongoose');
-
-// Globally opt into filtering by properties that aren't in the schema.
-// Included because it removes prepatory warnings for Mongoose 7.
-mongoose.set('strictQuery', false);
-
-const mongoDB = process.env.MONGODB_URI;
-
-// Wait for database to connect, logging an error if there is a problem.
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(mongoDB);
-}
-
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// Session setup
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -34,21 +32,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// Provides access to currentUser variable in all views
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
-// catch 404 and forward to error handler
+// Passport authentication
+require('./config/passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
+app.use('/', indexRouter);
+
+// Catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+  // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // Render the error page
   res.status(err.status || 500);
   res.render('error');
 });

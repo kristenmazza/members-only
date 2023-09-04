@@ -7,8 +7,12 @@
     <%- include("partials/header"); %>
     <div class="main-container">
       <div class="content">
-        <i class="large material-icons">account_circle</i>
-
+        <% if (user) {%>
+        <h1>WELCOME BACK <%= user.username %></h1>
+        <a href="/log-out">LOG OUT</a>
+        <% } else { %>
+        <p>Log in!</p>
+        <% } %>
         <h1><%= title %></h1>
       </div>
     </div>
