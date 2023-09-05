@@ -114,14 +114,25 @@ nav {
   border-bottom: 1px solid rgb(72, 155, 232);
   box-shadow: 0 1px 0 0 rgb(72, 155, 232);
 }
+
 /* invalid color */
 .input-field input[type='text'].invalid {
   border-bottom: 1px solid #000;
   box-shadow: 0 1px 0 0 #000;
 }
+
 /* icon prefix focus color */
 .input-field .prefix.active {
   color: #000;
+}
+
+li {
+  list-style-type: disc !important;
+}
+
+.errors {
+  color: #f44336;
+  padding: 0 0 2rem 0;
 }
 
 @media screen and (max-width: 992px) {

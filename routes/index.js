@@ -1,38 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const bcrypt = require('bcryptjs');
-const User = require('../models/user');
+const user_controller = require('../controllers/userController');
 
 // Get homepage
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Messages', user: req.user });
-});
+router.get('/', user_controller.index);
 
 // Render signup form
-router.get('/signup', function (req, res, next) {
-  res.render('signup_form', { title: 'Sign up' });
-});
+router.get('/signup', user_controller.user_create_get);
 
 // Create new user
-router.post('/signup', async function (req, res, next) {
-  try {
-    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-      // Store hashed password in database
-      const user = new User({
-        username: req.body.username,
-        password: hashedPassword,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        membership_status: 'viewer',
-      });
-      const result = await user.save();
-      res.redirect('/');
-    });
-  } catch (err) {
-    return next(err);
-  }
-});
+router.post('/signup', user_controller.user_create_post);
 
 // Render login form
 router.get('/login', function (req, res, next) {

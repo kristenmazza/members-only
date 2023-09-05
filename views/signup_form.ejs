@@ -12,33 +12,42 @@
           <form class="col s12" method="POST" action="">
             <div class="row">
               <div class="input-field col s6">
+                <% const f_name = typeof user === 'undefined' ? '' :
+                user.first_name %>
                 <input
                   name="first_name"
                   id="first_name"
                   type="text"
                   class="validate"
+                  value="<%= f_name %>"
                 />
                 <label class="active" for="first_name">First Name</label>
               </div>
               <div class="input-field col s6">
+                <% const l_name = typeof user === 'undefined' ? '' :
+                user.last_name %>
                 <input
                   name="last_name"
                   id="last_name"
                   type="text"
                   class="validate"
+                  value="<%= l_name %>"
                 />
                 <label class="active" for="last_name">Last Name</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
+                <% const email = typeof user === 'undefined' ? '' :
+                user.username %>
                 <input
                   name="username"
-                  id="email"
+                  id="username"
                   type="email"
                   class="validate"
+                  value="<%= email %>"
                 />
-                <label class="active" for="email">Email</label>
+                <label class="active" for="username">Email</label>
               </div>
             </div>
             <div class="row">
@@ -54,9 +63,22 @@
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <input id="c-password" type="password" class="validate" />
-                <label class="active" for="c-password">Confirm Password</label>
+                <input
+                  name="c_password"
+                  id="c_password"
+                  type="password"
+                  class="validate"
+                />
+                <label class="active" for="c_password">Confirm Password</label>
               </div>
+            </div>
+            <div class="errors">
+              <ul>
+                <% if (typeof errors !== 'undefined') { %> <% for (let i = 0; i
+                < errors.length; i++) { %> <% const error = errors[i] %>
+                <li><%= error.msg %></li>
+                <% } } %>
+              </ul>
             </div>
             <button
               class="btn waves-effect waves-light"
