@@ -110,3 +110,8 @@ exports.login_post = [
     failureMessage: true,
   }),
 ];
+
+// Render login form
+exports.join_get = asyncHandler(async (req, res, next) => {
+  res.render('join_form', { title: 'Join Club' });
+});

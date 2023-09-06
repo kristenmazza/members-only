@@ -3,6 +3,12 @@ const router = express.Router();
 const passport = require('passport');
 const user_controller = require('../controllers/userController');
 
+// Provides access to currentUser variable in all views
+router.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 // Get homepage
 router.get('/', user_controller.index);
 
@@ -17,6 +23,9 @@ router.get('/login', user_controller.login_get);
 
 // Authenticate user
 router.post('/login', user_controller.login_post);
+
+// Render join club form
+router.get('/join', user_controller.join_get);
 
 // Log out
 router.get('/log-out', (req, res, next) => {

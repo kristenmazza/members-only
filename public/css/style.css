@@ -26,6 +26,14 @@ h1 {
   text-align: center;
 }
 
+.btn {
+  background-color: #1976cc;
+}
+
+.btn:hover {
+  background-color: #338ce0;
+}
+
 /* Header */
 nav {
   background-color: rgb(255, 255, 255);
@@ -37,7 +45,7 @@ nav {
     font-weight: 800;
 
     :is(span) {
-      color: rgb(72, 155, 232);
+      color: #1976cc;
     }
   }
 
@@ -45,6 +53,70 @@ nav {
   & a {
     color: rgb(57, 63, 76);
   }
+}
+
+.nav-account-info {
+  padding: 15px;
+  & p {
+    color: rgb(57, 63, 76);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .light {
+    color: rgb(125, 134, 154);
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+
+  .username {
+    font-size: 1rem;
+  }
+
+  .strong {
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+}
+
+.nav-account-info.side {
+  padding: 32px;
+  background-color: #1976cc;
+
+  & p {
+    color: #fcfcfc;
+  }
+
+  .light {
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+
+  .username {
+    font-size: 1rem;
+  }
+
+  .strong {
+    font-weight: 800;
+    font-size: 1.2rem;
+  }
+}
+
+.dropdown-content {
+  top: 60px !important;
+  width: 230px !important;
+
+  .center-align {
+    line-height: 1;
+
+    .btn-small {
+      background-color: #1976cc;
+    }
+  }
+}
+
+.divider {
+  margin: 15px 0 !important;
 }
 
 /* Footer */
@@ -126,13 +198,13 @@ nav {
   color: #000;
 }
 
-li {
-  list-style-type: disc !important;
-}
-
 .errors {
   color: #f44336;
   padding: 0 0 2rem 0;
+
+  & li {
+    list-style-type: disc !important;
+  }
 }
 
 @media screen and (max-width: 992px) {

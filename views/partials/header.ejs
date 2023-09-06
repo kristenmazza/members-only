@@ -1,19 +1,70 @@
 <header class="header">
   <nav>
-    <div class="nav-wrapper">
-      <a href="/" class="brand-logo">Incognito<span>Club</span></a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-        ><i class="material-icons">menu</i></a
-      >
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/login">Log in</a></li>
-        <li><a href="/signup">Sign up</a></li>
-      </ul>
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo">Incognito<span>Club</span></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="right hide-on-med-and-down">
+          <% if (locals.currentUser) { %>
+          <li><a href="/join">Join club</a></li>
+          <!-- Dropdown Trigger -->
+          <li>
+            <a class="dropdown-trigger" href="#!" data-target="dropdown1"
+              >Account<i class="material-icons right">arrow_drop_down</i></a
+            >
+          </li>
+
+          <!-- Dropdown Structure -->
+          <div id="dropdown1" class="dropdown-content">
+            <div class="nav-account-info">
+              <p class="light">Signed in as</p>
+              <p class="strong"><%= locals.currentUser.name %></p>
+              <p class="light username"><%= locals.currentUser.username %></p>
+              <p class="divider" tabindex="-1"></p>
+              <p class="light">Membership status</p>
+              <p class="strong">
+                <% if (locals.currentUser.membership_status === 'viewer') { %>
+                Not a Member <% } else { %> <%=
+                locals.currentUser.membership_status === 'viewer' %> <% } %>
+              </p>
+              <p class="divider" tabindex="-1"></p>
+              <div class="center-align">
+                <a class="waves-effect waves-light btn-small" href="/log-out"
+                  >Log out</a
+                >
+              </div>
+            </div>
+          </div>
+          <% } else { %>
+          <li><a href="/login">Log in</a></li>
+          <li><a href="/signup">Sign up</a></li>
+          <% } %>
+        </ul>
+      </div>
     </div>
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
+    <% if (locals.currentUser) { %>
+    <div class="nav-account-info side">
+      <p class="light">Signed in as</p>
+      <p class="strong"><%= locals.currentUser.name %></p>
+      <p class="light username"><%= locals.currentUser.username %></p>
+      <p class="divider" tabindex="-1"></p>
+      <p class="light">Membership status</p>
+      <p class="strong">
+        <% if (locals.currentUser.membership_status === 'viewer') { %> Not a
+        Member <% } else { %> <%= locals.currentUser.membership_status ===
+        'viewer' %> <% } %>
+      </p>
+    </div>
+    <li><a href="/join">Join club</a></li>
+    <li><a href="/log-out">Log out</a></li>
+    <% } else { %>
     <li><a href="/login">Log in</a></li>
     <li><a href="/signup">Sign up</a></li>
+    <% } %>
   </ul>
 </header>
