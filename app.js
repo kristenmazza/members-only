@@ -39,9 +39,20 @@ app.use(function (req, res, next) {
 });
 
 // Passport authentication
-require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
+require('./config/passport');
+
+// Adds session error message from Passport
+// to res.locals to access it in the views
+// req.session.messages accumulates all error messages,
+// so we access the last (most recent) index
+app.use((req, res, next) => {
+  if (req.session.messages) {
+    res.locals.errorMessage = req.session.messages.at(-1);
+  }
+  next();
+});
 
 // Routes
 app.use('/', indexRouter);

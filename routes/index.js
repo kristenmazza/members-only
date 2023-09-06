@@ -13,18 +13,10 @@ router.get('/signup', user_controller.user_create_get);
 router.post('/signup', user_controller.user_create_post);
 
 // Render login form
-router.get('/login', function (req, res, next) {
-  res.render('login_form', { title: 'Log in' });
-});
+router.get('/login', user_controller.login_get);
 
 // Authenticate user
-router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/',
-  })
-);
+router.post('/login', user_controller.login_post);
 
 // Log out
 router.get('/log-out', (req, res, next) => {

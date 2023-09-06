@@ -2,18 +2,19 @@ const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const passport = require('passport');
 
 // Display homepage
 exports.index = asyncHandler(async (req, res, next) => {
   res.render('index', { title: 'Messages', user: req.user });
 });
 
-// Display user sign up form on get
+// Render signup form
 exports.user_create_get = asyncHandler(async (req, res, next) => {
   res.render('signup_form', { title: 'Sign up' });
 });
 
-// Display user sign up form on post
+// Create new user
 exports.user_create_post = [
   // Validate and sanitize fields.
   body('first_name', 'First name cannot be blank').trim().isLength({ min: 1 }),
@@ -69,5 +70,43 @@ exports.user_create_post = [
     } catch (err) {
       return next(err);
     }
+  }),
+];
+
+// Render login form
+exports.login_get = asyncHandler(async (req, res, next) => {
+  res.render('login_form', { title: 'Log in' });
+});
+
+// Authenticate user on login
+exports.login_post = [
+  body('username')
+    .trim()
+    .isEmail()
+    .withMessage('Email is not valid')
+    .isLength({ min: 1 })
+    .withMessage('Email cannot be blank'),
+
+  body('password')
+    .isLength({ min: 5 })
+    .withMessage('Password should be at least 5 characters'),
+
+  asyncHandler(async (req, res, next) => {
+    // Handle request
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render('login_form', {
+        title: 'Log in',
+        errors: errors.array(),
+      });
+    }
+    next();
+  }),
+
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureMessage: true,
   }),
 ];

@@ -14,11 +14,11 @@
               <div class="input-field col s12">
                 <input
                   name="username"
-                  id="email"
+                  id="username"
                   type="email"
                   class="validate"
                 />
-                <label class="active" for="email">Email</label>
+                <label class="active" for="username">Email</label>
               </div>
             </div>
             <div class="row">
@@ -32,7 +32,16 @@
                 <label class="active" for="password">Password</label>
               </div>
             </div>
-
+            <div class="errors">
+              <ul>
+                <% if (locals.errorMessage) { %>
+                <li><%= locals.errorMessage %></li>
+                <% } %> <% if (typeof errors !== 'undefined') { %> <% for (let i
+                = 0; i < errors.length; i++) { %> <% const error = errors[i] %>
+                <li><%= error.msg %></li>
+                <% } } %>
+              </ul>
+            </div>
             <button
               class="btn waves-effect waves-light"
               type="submit"
