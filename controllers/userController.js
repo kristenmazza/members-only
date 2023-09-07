@@ -4,10 +4,6 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const passport = require('passport');
 
-// Display homepage
-exports.index = asyncHandler(async (req, res, next) => {
-  res.render('index', { title: 'Messages', user: req.user });
-});
 
 // Render signup form
 exports.user_create_get = asyncHandler(async (req, res, next) => {

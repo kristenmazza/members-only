@@ -6,14 +6,34 @@
   <body>
     <%- include("partials/header"); %>
     <div class="main-container">
-      <div class="content">
-        <% if (user) { console.log(user) %>
-        <h1>WELCOME BACK <%= user.username %></h1>
-        <a href="/log-out">LOG OUT</a>
-        <% } else { %>
-        <p>Log in!</p>
-        <% } %>
+      <div class="container">
         <h1><%= title %></h1>
+        <ul class="collection">
+          <% for (let i = 0; i < message_list.length; i++) { %> <% const
+          initials = message_list[i].author.first_name.charAt(0) +
+          message_list[i].author.last_name.charAt(0) %> <% const upperInitials =
+          initials.toUpperCase() %>
+          <li class="collection-item avatar">
+            <% if (!locals.currentUser) { %>
+            <img src="images/incognito.png" alt="" class="circle" />
+            <% } else { %>
+            <i class="material-icons circle initials"><%= upperInitials %></i>
+            <% } %>
+            <h2 class="title"><%= message_list[i].title %></h2>
+            <p class="author">
+              by
+              <span class="author-name"
+                ><%= message_list[i].author.name %></span
+              >
+            </p>
+            <p class="date"><%= message_list[i].date__formatted %></p>
+            <p class="message"><%= message_list[i].content %></p>
+            <a href="#!" class="secondary-content"
+              ><i class="material-icons">delete</i></a
+            >
+          </li>
+          <% } %>
+        </ul>
       </div>
     </div>
     <%- include("partials/footer"); %> <%- include("partials/js_tags"); %>

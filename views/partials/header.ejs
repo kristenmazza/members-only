@@ -7,9 +7,16 @@
           ><i class="material-icons">menu</i></a
         >
         <ul class="right hide-on-med-and-down">
-          <% if (locals.currentUser.membership_status === 'viewer') { %>
+          <% if (locals.currentUser && locals.currentUser.membership_status ===
+          'viewer') { %>
           <li><a href="/join">Join club</a></li>
-          <% } %> <% if (locals.currentUser) { %>
+          <% } else if ( locals.currentUser &&
+          locals.currentUser.membership_status === 'member' ||
+          locals.currentUser && locals.currentUser.membership_status ===
+          'admin') { %>
+          <li><a href="/new-message">New message</a> <% } %></li>
+
+          <% if (locals.currentUser) { %>
 
           <!-- Dropdown Trigger -->
           <li>
@@ -27,8 +34,9 @@
               <p class="divider" tabindex="-1"></p>
               <p class="light">Membership status</p>
               <p class="strong">
-                <% if (locals.currentUser.membership_status === 'viewer') { %>
-                Not a Member <% } else { %> <% const status =
+                <% if (locals.currentUser &&
+                locals.currentUser.membership_status === 'viewer') { %> Not a
+                Member <% } else if (locals.currentUser){ %> <% const status =
                 locals.currentUser.membership_status; %> <% const capitalized =
                 status.charAt(0).toUpperCase() + status.slice(1); %> <%=
                 capitalized %> <% } %>
@@ -59,16 +67,21 @@
       <p class="divider" tabindex="-1"></p>
       <p class="light">Membership status</p>
       <p class="strong">
-        <% if (locals.currentUser.membership_status === 'viewer') { %> Not a
-        Member <% } else { %> <% const status =
-        locals.currentUser.membership_status; %> <% const capitalized =
-        status.charAt(0).toUpperCase() + status.slice(1); %> <%= capitalized %>
-        <% } %>
+        <% if (locals.currentUser && locals.currentUser.membership_status ===
+        'viewer') { %> Not a Member <% } else if (locals.currentUser) { %> <%
+        const status = locals.currentUser.membership_status; %> <% const
+        capitalized = status.charAt(0).toUpperCase() + status.slice(1); %> <%=
+        capitalized %> <% } %>
       </p>
     </div>
-    <% } %> <% if (locals.currentUser.membership_status === 'viewer') { %>
+    <% } %> <% if (locals.currentUser && locals.currentUser.membership_status
+    === 'viewer') { %>
     <li><a href="/join">Join club</a></li>
-    <% } %> <% if (locals.currentUser) { %>
+    <% } else if (locals.currentUser && locals.currentUser.membership_status ===
+    'member' || locals.currentUser && locals.currentUser.membership_status ===
+    'admin') { %>
+    <li><a href="/new-message">New message</a> <% } %></li>
+    <% if (locals.currentUser) { %>
     <li><a href="/log-out">Log out</a></li>
     <% } else { %>
     <li><a href="/login">Log in</a></li>

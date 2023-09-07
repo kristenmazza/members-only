@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const user_controller = require('../controllers/userController');
+const message_controller = require('../controllers/messageController');
 
 // Provides access to currentUser variable in all views
 router.use(function (req, res, next) {
@@ -9,7 +10,7 @@ router.use(function (req, res, next) {
 });
 
 // Get homepage
-router.get('/', user_controller.index);
+router.get('/', message_controller.index);
 
 // Render signup form
 router.get('/signup', user_controller.user_create_get);
@@ -28,6 +29,12 @@ router.get('/join', user_controller.join_get);
 
 // Authorize user for membership
 router.post('/join', user_controller.join_post);
+
+// Render create message form
+router.get('/new-message', message_controller.message_create_get);
+
+// Add message
+router.post('/new-message', message_controller.message_create_post);
 
 // Log out
 router.get('/log-out', (req, res, next) => {
