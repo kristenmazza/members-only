@@ -9,7 +9,7 @@
       <div class="content">
         <h1><%= title %></h1>
         <div class="row">
-          <form class="col s12" method="POST" action="/login">
+          <form class="col s12" method="POST" action="/join">
             <div class="row">
               <div class="input-field col s12">
                 <input
@@ -25,12 +25,12 @@
             </div>
             <div class="errors">
               <ul>
-                <% if (locals.errorMessage) { %>
-                <li><%= locals.errorMessage %></li>
-                <% } %> <% if (typeof errors !== 'undefined') { %> <% for (let i
-                = 0; i < errors.length; i++) { %> <% const error = errors[i] %>
+                <% if (typeof errors !== 'undefined') { %> <% for (let i = 0; i
+                < errors.length; i++) { %> <% const error = errors[i] %>
                 <li><%= error.msg %></li>
-                <% } } %>
+                <% } } %><% if (typeof errorPassword !== 'undefined') { %>
+                <li><%= errorPassword %></li>
+                <% } %>
               </ul>
             </div>
             <div class="center-align">

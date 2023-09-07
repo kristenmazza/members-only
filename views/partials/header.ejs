@@ -7,8 +7,10 @@
           ><i class="material-icons">menu</i></a
         >
         <ul class="right hide-on-med-and-down">
-          <% if (locals.currentUser) { %>
+          <% if (locals.currentUser.membership_status === 'viewer') { %>
           <li><a href="/join">Join club</a></li>
+          <% } %> <% if (locals.currentUser) { %>
+
           <!-- Dropdown Trigger -->
           <li>
             <a class="dropdown-trigger" href="#!" data-target="dropdown1"
@@ -26,8 +28,10 @@
               <p class="light">Membership status</p>
               <p class="strong">
                 <% if (locals.currentUser.membership_status === 'viewer') { %>
-                Not a Member <% } else { %> <%=
-                locals.currentUser.membership_status === 'viewer' %> <% } %>
+                Not a Member <% } else { %> <% const status =
+                locals.currentUser.membership_status; %> <% const capitalized =
+                status.charAt(0).toUpperCase() + status.slice(1); %> <%=
+                capitalized %> <% } %>
               </p>
               <p class="divider" tabindex="-1"></p>
               <div class="center-align">
@@ -56,11 +60,15 @@
       <p class="light">Membership status</p>
       <p class="strong">
         <% if (locals.currentUser.membership_status === 'viewer') { %> Not a
-        Member <% } else { %> <%= locals.currentUser.membership_status ===
-        'viewer' %> <% } %>
+        Member <% } else { %> <% const status =
+        locals.currentUser.membership_status; %> <% const capitalized =
+        status.charAt(0).toUpperCase() + status.slice(1); %> <%= capitalized %>
+        <% } %>
       </p>
     </div>
+    <% } %> <% if (locals.currentUser.membership_status === 'viewer') { %>
     <li><a href="/join">Join club</a></li>
+    <% } %> <% if (locals.currentUser) { %>
     <li><a href="/log-out">Log out</a></li>
     <% } else { %>
     <li><a href="/login">Log in</a></li>

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const user_controller = require('../controllers/userController');
 
 // Provides access to currentUser variable in all views
@@ -26,6 +25,9 @@ router.post('/login', user_controller.login_post);
 
 // Render join club form
 router.get('/join', user_controller.join_get);
+
+// Authorize user for membership
+router.post('/join', user_controller.join_post);
 
 // Log out
 router.get('/log-out', (req, res, next) => {

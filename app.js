@@ -32,12 +32,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// // Provides access to currentUser variable in all views
-// app.use(function (req, res, next) {
-//   res.locals.currentUser = req.user;
-//   next();
-// });
-
 // Passport authentication
 app.use(passport.initialize());
 app.use(passport.session());

@@ -111,7 +111,47 @@ exports.login_post = [
   }),
 ];
 
-// Render login form
+// Render join club form
 exports.join_get = asyncHandler(async (req, res, next) => {
-  res.render('join_form', { title: 'Join Club' });
+  //   Redirect users who are not logged in
+  if (!res.locals.currentUser) {
+    return res.redirect('/login');
+  }
+  return res.render('join_form', { title: 'Join club' });
 });
+
+// Authorize user for membership
+exports.join_post = [
+  // Validate and sanitize fields.
+
+  body('secret_password', 'Secret password cannot be blank')
+    .trim()
+    .isLength({ min: 1 }),
+
+  asyncHandler(async (req, res, next) => {
+    // Handle request
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.render('join_form', {
+        title: 'Join club',
+        errors: errors.array(),
+      });
+    } else if (req.body.secret_password !== process.env.CLUB_PASSWORD) {
+      console.log('error');
+      return res.render('join_form', {
+        title: 'Join club',
+        errorPassword: 'Incorrect password',
+      });
+    }
+
+    const user = new User(res.locals.currentUser);
+    user.membership_status = 'member';
+    try {
+      await User.findByIdAndUpdate(res.locals.currentUser._id, user);
+    } catch (err) {
+      return next(err);
+    }
+    return res.redirect('/');
+  }),
+];
