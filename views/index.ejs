@@ -20,6 +20,8 @@
             <i class="material-icons circle initials"><%= upperInitials %></i>
             <% } %>
             <h2 class="title"><%= message_list[i].title %></h2>
+            <% if (locals.currentUser && locals.currentUser.membership_status
+            === 'member') { %>
             <p class="author">
               by
               <span class="author-name"
@@ -27,10 +29,18 @@
               >
             </p>
             <p class="date"><%= message_list[i].date__formatted %></p>
+            <% }%>
             <p class="message"><%= message_list[i].content %></p>
             <a href="#!" class="secondary-content"
               ><i class="material-icons">delete</i></a
             >
+            <% if (!locals.currentUser || locals.currentUser.membership_status
+            !== 'member') { %>
+            <div class="divider"></div>
+            <p class="note">
+              Become a member to view who created this post and when.
+            </p>
+            <% } %>
           </li>
           <% } %>
         </ul>

@@ -248,6 +248,13 @@ nav {
   }
 }
 
+.note {
+  line-height: 1;
+  padding-bottom: 1rem;
+  font-style: italic;
+  color: rgb(111, 111, 111);
+}
+
 @media screen and (max-width: 992px) {
   nav {
     padding: 0 10px;
