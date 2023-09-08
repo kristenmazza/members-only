@@ -6,6 +6,8 @@ const logger = require('morgan');
 const session = require('express-session');
 const connection = require('./config/database');
 const passport = require('passport');
+const compression = require('compression');
+const helmet = require('helmet');
 
 require('dotenv').config();
 
@@ -13,6 +15,9 @@ const indexRouter = require('./routes/index');
 const messageRouter = require('./routes/message');
 
 const app = express();
+
+app.use(compression()); // Compress all routes
+app.use(helmet()); // Protect against well-known vulnerabilities
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
