@@ -32,7 +32,9 @@
             <% }%>
             <p class="message"><%= message_list[i].content %></p>
             <% if (locals.currentUser && locals.currentUser.admin === true) { %>
-            <a href="#!" class="secondary-content"
+            <a
+              href="<%= message_list[i].url %>/delete"
+              class="secondary-content"
               ><i class="material-icons">delete</i></a
             >
             <% } %> <% if (!locals.currentUser ||

@@ -13,4 +13,8 @@ MessageSchema.virtual('date__formatted').get(function () {
   return format(this.time_stamp, "MM/dd/yyyy 'at' h:mm a");
 });
 
+MessageSchema.virtual('url').get(function () {
+  return `/message/${this._id}`;
+});
+
 module.exports = mongoose.model('Message', MessageSchema);

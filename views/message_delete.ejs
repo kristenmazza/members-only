@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("partials/head"); %>
+  </head>
+  <body>
+    <%- include("partials/header"); %>
+    <div class="main-container">
+      <div class="container">
+        <h1><%= title %></h1>
+        <p class="text-center">Are you sure you want to delete this message?</p>
+        <ul class="collection">
+          <% const initials = message.author.first_name.charAt(0) +
+          message.author.last_name.charAt(0) %> <% const upperInitials =
+          initials.toUpperCase() %>
+          <li class="collection-item avatar">
+            <i class="material-icons circle initials"><%= upperInitials %></i>
+            <h2 class="title"><%= message.title %></h2>
+            <p class="author">
+              by
+              <span class="author-name"><%= message.author.name %></span>
+            </p>
+            <p class="date"><%= message.date__formatted %></p>
+            <p class="message"><%= message.content %></p>
+          </li>
+        </ul>
+        <div class="center-align">
+          <form method="post" action="">
+            <div class="form-group">
+              <input
+                id="<%- message._id %>"
+                class="form-control"
+                type="hidden"
+                name="messageid"
+                required="true"
+                value="<%- message._id %>"
+              />
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <%- include("partials/footer"); %> <%- include("partials/js_tags"); %>
+  </body>
+</html>

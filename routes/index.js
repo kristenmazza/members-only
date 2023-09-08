@@ -30,6 +30,12 @@ router.get('/join', user_controller.join_get);
 // Authorize user for membership
 router.post('/join', user_controller.join_post);
 
+// Render admin password form
+router.get('/admin', user_controller.admin_create_get);
+
+// Authorize user for admin
+router.post('/admin', user_controller.admin_create_post);
+
 // Render create message form
 router.get('/new-message', message_controller.message_create_get);
 

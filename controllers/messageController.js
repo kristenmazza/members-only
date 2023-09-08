@@ -44,3 +44,25 @@ exports.message_create_post = [
     }
   }),
 ];
+
+// Display message delete page on get
+exports.message_delete_get = asyncHandler(async (req, res, next) => {
+  const message = await Message.findById(req.params.id)
+    .populate('author')
+    .exec();
+
+  if (message === null) {
+    res.redirect('/');
+  }
+
+  res.render('message_delete', {
+    title: 'Delete message',
+    message: message,
+  });
+});
+
+// Handle message delete on post
+exports.message_delete_post = asyncHandler(async (req, res, next) => {
+  await Message.findByIdAndRemove(req.body.messageid).exec();
+  res.redirect('/');
+});
