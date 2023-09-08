@@ -14,7 +14,8 @@
           message_list[i].author.last_name.charAt(0) %> <% const upperInitials =
           initials.toUpperCase() %>
           <li class="collection-item avatar">
-            <% if (!locals.currentUser) { %>
+            <% if (!locals.currentUser || locals.currentUser.membership_status
+            === 'viewer') { %>
             <img src="images/incognito.png" alt="" class="circle" />
             <% } else { %>
             <i class="material-icons circle initials"><%= upperInitials %></i>
@@ -41,7 +42,7 @@
             locals.currentUser.membership_status !== 'member') { %>
             <div class="divider"></div>
             <p class="note">
-              Become a member to view who created this post and when.
+              Become a club member to view who created this post and when.
             </p>
             <% } %>
           </li>
