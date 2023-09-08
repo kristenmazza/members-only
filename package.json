@@ -29,6 +29,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.9",
     "eslint": "^8.48.0",
     "nodemon": "^3.0.1"
   }
