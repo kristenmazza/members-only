@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const passport = require('passport');
 
-
 // Render signup form
 exports.user_create_get = asyncHandler(async (req, res, next) => {
   res.render('signup_form', { title: 'Sign up' });
@@ -119,7 +118,6 @@ exports.join_get = asyncHandler(async (req, res, next) => {
 // Authorize user for membership
 exports.join_post = [
   // Validate and sanitize fields.
-
   body('secret_password', 'Secret password cannot be blank')
     .trim()
     .isLength({ min: 1 }),
@@ -134,7 +132,6 @@ exports.join_post = [
         errors: errors.array(),
       });
     } else if (req.body.secret_password !== process.env.CLUB_PASSWORD) {
-      console.log('error');
       return res.render('join_form', {
         title: 'Join club',
         errorPassword: 'Incorrect password',
@@ -143,6 +140,49 @@ exports.join_post = [
 
     const user = new User(res.locals.currentUser);
     user.membership_status = 'member';
+    try {
+      await User.findByIdAndUpdate(res.locals.currentUser._id, user);
+    } catch (err) {
+      return next(err);
+    }
+    return res.redirect('/');
+  }),
+];
+
+// Render admin password form
+exports.admin_create_get = asyncHandler(async (req, res, next) => {
+  //   Redirect users who are not logged in
+  if (!res.locals.currentUser) {
+    return res.redirect('/login');
+  }
+  return res.render('admin_form', { title: 'Become an administrator' });
+});
+
+// Authorize user for admin status
+exports.admin_create_post = [
+  // Validate and sanitize fields.
+  body('admin_password', 'Admin password cannot be blank')
+    .trim()
+    .isLength({ min: 1 }),
+
+  asyncHandler(async (req, res, next) => {
+    // Handle request
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.render('admin_form', {
+        title: 'Become an administrator',
+        errors: errors.array(),
+      });
+    } else if (req.body.admin_password !== process.env.ADMIN_PASSWORD) {
+      return res.render('admin_form', {
+        title: 'Become an administrator',
+        errorPassword: 'Incorrect password',
+      });
+    }
+
+    const user = new User(res.locals.currentUser);
+    user.admin = true;
     try {
       await User.findByIdAndUpdate(res.locals.currentUser._id, user);
     } catch (err) {

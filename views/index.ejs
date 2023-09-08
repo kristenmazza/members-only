@@ -31,11 +31,12 @@
             <p class="date"><%= message_list[i].date__formatted %></p>
             <% }%>
             <p class="message"><%= message_list[i].content %></p>
+            <% if (locals.currentUser && locals.currentUser.admin === true) { %>
             <a href="#!" class="secondary-content"
               ><i class="material-icons">delete</i></a
             >
-            <% if (!locals.currentUser || locals.currentUser.membership_status
-            !== 'member') { %>
+            <% } %> <% if (!locals.currentUser ||
+            locals.currentUser.membership_status !== 'member') { %>
             <div class="divider"></div>
             <p class="note">
               Become a member to view who created this post and when.
