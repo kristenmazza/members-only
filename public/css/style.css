@@ -216,14 +216,33 @@ nav {
   color: #787e81;
 }
 
+button {
+  .material-icons {
+    color: #fff;
+  }
+}
+
 .material-icons.circle.initials {
   background-color: #e14a4a !important;
   font-family: Roboto;
   font-weight: 800;
 }
+.collection .collection-item.avatar .secondary-content {
+  top: 2rem;
+  right: 2rem;
+}
+
+.collection .collection-item.avatar:not(.circle-clipper) > .circle {
+  left: 20px !important;
+}
+
+.collection .collection-item.avatar {
+  padding-left: 82px;
+}
 
 .collection-item.avatar {
   color: rgb(57, 63, 76);
+  padding: 2rem;
 
   .title {
     font-weight: 800;
@@ -256,7 +275,7 @@ nav {
 
 .note {
   line-height: 1;
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   font-style: italic;
   color: rgb(111, 111, 111);
 }
