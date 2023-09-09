@@ -16,6 +16,7 @@ Incognito Club is an exclusive clubhouse in which anyone can view the messages p
 - [Passport.js](https://www.passportjs.org/) (user authentication)
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs) (password encryption)
 - [EJS](https://ejs.co/) (templating language)
+- [Materialize.css](https://materializecss.com/) (front-end framework)
 - [Fly.io](fly.io) (for deployment)
 
 ## Set Up
